@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from rest_framework.parsers import FileUploadParser
 from albumes.models import Album
 
 # Create your models here.
@@ -9,7 +10,8 @@ def upload_path(instance, filename):
 
 class Foto(models.Model):
     """Model definition for Foto."""
-    IdAlbum = models.ForeignKey(Album, on_delete=models.CASCADE)
+    parser_class = (FileUploadParser,)
+    IdAlbum = models.ForeignKey(Album, related_name='fotos', on_delete=models.CASCADE)
     Caption = models.CharField(max_length=255)
     imagen = models.ImageField(upload_to=upload_path)
     DateOfCreation = models.DateTimeField(auto_now=True)
