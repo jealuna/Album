@@ -1,12 +1,17 @@
 from django.db import models
+from datetime import datetime
 from albumes.models import Album
 
 # Create your models here.
+def upload_path(instance, filename):
+    fecha = datetime.today().strftime('%Y/%m/%d')
+    return f'{instance.IdAlbum.id}/{fecha}/{filename}'
+
 class Foto(models.Model):
     """Model definition for Foto."""
     IdAlbum = models.ForeignKey(Album, on_delete=models.CASCADE)
     Caption = models.CharField(max_length=255)
-    imagen = models.ImageField(upload_to='album/%Y/%m/%d/')
+    imagen = models.ImageField(upload_to=upload_path)
     DateOfCreation = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -17,4 +22,4 @@ class Foto(models.Model):
 
     def __str__(self):
         """Unicode representation of Foto."""
-        pass
+        return self.Caption

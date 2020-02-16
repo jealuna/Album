@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'albumes',
     'fotos',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

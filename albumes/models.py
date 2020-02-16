@@ -22,4 +22,4 @@ class Album(models.Model):
 
     def __str__(self):
         """Unicode representation of Album."""
-        pass
+        return self.Title
