@@ -9,10 +9,12 @@ services:
       - "3306:3306"
     restart: always
     environment:
+      - MYSQL_PORT=3306
       - MYSQL_ROOT_PASSWORD=secreto
       - MYSQL_DATABASE=album
       - MYSQL_USER=album
       - MYSQL_PASSWORD=secreto
+    networks: ['mynetwork'] 
   backend:
     build: .
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
@@ -22,10 +24,13 @@ services:
       - "8000:8000"
     expose:
       - "8000"
+    restart: always
     networks: ['mynetwork']
     hostname: backend
     depends_on:
         - db
+    links:
+        - db:db
   frontend:
     build: ./frontend
     volumes:
