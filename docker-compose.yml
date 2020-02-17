@@ -1,6 +1,18 @@
 version: '3.7'
 
 services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - "./mysql:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=secreto
+      - MYSQL_DATABASE=album
+      - MYSQL_USER=album
+      - MYSQL_PASSWORD=secreto
   backend:
     build: .
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
@@ -14,18 +26,6 @@ services:
     hostname: backend
     depends_on:
         - db
-  db:
-    image: mysql:5.7
-    volumes:
-      - "./mysql:/var/lib/mysql"
-    ports:
-      - "3306:3306"
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=secreto
-      - MYSQL_DATABASE=album
-      - MYSQL_USER=album
-      - MYSQL_PASSWORD=secreto
   frontend:
     build: ./frontend
     volumes:
@@ -39,5 +39,6 @@ services:
       - backend:backend
     networks: ['mynetwork']
     command: yarn --cwd album/ start
-    
+    depends_on: 
+      - backend
 networks: {mynetwork: {}}
