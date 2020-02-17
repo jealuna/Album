@@ -12,6 +12,18 @@ services:
       - "8000"
     networks: ['mynetwork']
     hostname: backend
+  db:
+    image: mysql:mysql:5.7
+    volumes:
+      - "./mysql:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=secreto
+      - MYSQL_DATABASE=album
+      - MYSQL_USER=album
+      - MYSQL_PASSWORD=secreto
   frontend:
     build: ./frontend
     volumes:

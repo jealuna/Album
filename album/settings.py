@@ -25,8 +25,7 @@ SECRET_KEY = 'e7mhy)$2j=0f%p39%-bp=#a76rrn2pw07vgw(04vy+9@-*ht)9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['3.20.236.107', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -81,8 +80,13 @@ WSGI_APPLICATION = 'album.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'album',
+        'USER': 'album',
+        'PASSWORD': 'secrerto',
+        'HOST': 'db',
+        'PORT': '3307',
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 
