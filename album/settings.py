@@ -83,9 +83,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'album',
         'USER': 'album',
-        'PASSWORD': 'secrerto',
+        'PASSWORD': 'secreto',
         'HOST': 'db',
-        'PORT': '3307',
+        'PORT': '3306',
         'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
